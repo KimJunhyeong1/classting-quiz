@@ -1,11 +1,19 @@
-import { Props } from './type';
+import { useRecoilValue } from 'recoil';
+import { useQuestionsQuery } from '../../hooks/useQuestionsQuery';
+import quizState from '../../recoil/quiz/atom';
 
-function QuestionWindow({ question, category, difficulty }: Props) {
+function QuestionWindow() {
+  const quiz = useRecoilValue(quizState);
+  const { data } = useQuestionsQuery({
+    select: (data) => data[quiz.questionsIndex],
+    enabled: quiz.isCurrentSolving,
+  });
+
   return (
     <>
-      <h3>{category}</h3>
-      <span>{difficulty}</span>
-      <h2>{question}</h2>
+      <h3>{data?.category}</h3>
+      <span>{data?.difficulty}</span>
+      <h2>{data?.question}</h2>
     </>
   );
 }

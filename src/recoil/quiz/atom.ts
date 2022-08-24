@@ -6,7 +6,8 @@ const quizState = atom<IQuizState>({
   default: {
     isCurrentSolving: false,
     questionsIndex: 0,
-    currentQuizSolved: false,
+    currentQuestionState: 'pending',
+    selectedAnswer: '',
   },
 });
 

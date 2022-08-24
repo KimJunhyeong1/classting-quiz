@@ -9,5 +9,5 @@ export const fetchQuestions = async () => {
     params: { amount: 5, type: 'multiple' },
   });
 
-  return response.data;
+  return response.data.results;
 };

@@ -1,5 +1,7 @@
+export type QuestionState = 'pending' | 'correct' | 'incorrect';
 export interface IQuizState {
   isCurrentSolving: boolean;
   questionsIndex: number;
-  currentQuizSolved: boolean;
+  currentQuestionState: QuestionState;
+  selectedAnswer: string;
 }
