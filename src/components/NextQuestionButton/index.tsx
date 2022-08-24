@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 import quizState from '../../recoil/quiz/atom';
 import resultInfoState from '../../recoil/resultInfo/atom';
 
@@ -36,12 +37,22 @@ function NextQuestionButton() {
   return (
     <>
       {quiz.currentQuestionState !== 'pending' && (
-        <button onClick={handleNextButtonClick}>
-          {quiz.questionsIndex === quiz.questionsNum - 1 ? '퀴즈 종료' : '다음 문제'}
-        </button>
+        <NextButton onClick={handleNextButtonClick}>
+          {quiz.questionsIndex === quiz.questionsNum - 1 ? '퀴즈 종료' : '다음 문항'}
+        </NextButton>
       )}
     </>
   );
 }
+
+const NextButton = styled.button`
+  margin-top: 5px;
+  width: 150px;
+  height: 50px;
+  background-color: ${(props) => props.theme.colors.main};
+  border: 1px solid ${(props) => props.theme.colors.main};
+  border-radius: 10px;
+  color: white;
+`;
 
 export default NextQuestionButton;
