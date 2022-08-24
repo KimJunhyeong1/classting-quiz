@@ -5,6 +5,8 @@ const quizState = atom<IQuizState>({
   key: 'quizState',
   default: {
     isCurrentSolving: false,
+    questionsIndex: 0,
+    currentQuizSolved: false,
   },
 });
 
