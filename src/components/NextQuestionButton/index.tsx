@@ -19,6 +19,7 @@ const NextButton = styled.button`
   border: 1px solid ${(props) => props.theme.colors.main};
   border-radius: 10px;
   color: white;
+  font-size: 15px;
 `;
 
 export default NextQuestionButton;

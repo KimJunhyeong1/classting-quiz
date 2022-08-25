@@ -84,6 +84,11 @@ const AnswerEntry = styled.li`
   ${(props) => handleColorType(props.color)};
   text-align: center;
   line-height: 50px;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+
+  :hover {
+    transform: translateY(-10%);
+  }
 `;
 
 export default AnswerList;
