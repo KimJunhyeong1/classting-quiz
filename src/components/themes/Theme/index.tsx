@@ -5,6 +5,8 @@ const theme = {
   colors: {
     main: '#00c795',
     gray: '#e9ecef',
+    yellow: '#ffb43a',
+    red: '#fe7e64',
   },
   // fonts: ['sans-serif', 'Roboto'],
   // fontSizes: {

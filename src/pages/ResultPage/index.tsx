@@ -1,7 +1,9 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { IoHome } from 'react-icons/io5';
+import { MdSettingsBackupRestore, MdOutlineStickyNote2 } from 'react-icons/md';
 
 import { timeSpentState } from '../../recoil/resultInfo';
 import resultInfoState from '../../recoil/resultInfo/atom';
@@ -41,39 +43,44 @@ function ResultPage() {
       <ChartWrapper>
         <Pie data={data} />
       </ChartWrapper>
-      <button
-        onClick={() => {
-          resetQuiz();
-          resetResultInfo();
-          queryClient.removeQueries(['questions']);
-          navigate('/');
-        }}
-      >
-        홈
-      </button>
-      <button
-        onClick={() => {
-          setResultInfo((prev) => ({
-            ...prev,
-            startDate: new Date(),
-            correctNum: 0,
-            incorrectNum: 0,
-            incorrectQuestions: [],
-          }));
-          setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
-          navigate('/quiz');
-        }}
-      >
-        다시 풀기
-      </button>
-      <button
-        onClick={() => {
-          setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
-          navigate('/review');
-        }}
-      >
-        오답 노트
-      </button>
+      <IconListWrapper>
+        <IconWrapper>
+          <HomeIcon
+            onClick={() => {
+              resetQuiz();
+              resetResultInfo();
+              queryClient.removeQueries(['questions']);
+              navigate('/');
+            }}
+          />
+          <span>홈</span>
+        </IconWrapper>
+        <IconWrapper>
+          <BackIcon
+            onClick={() => {
+              setResultInfo((prev) => ({
+                ...prev,
+                startDate: new Date(),
+                correctNum: 0,
+                incorrectNum: 0,
+                incorrectQuestions: [],
+              }));
+              setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
+              navigate('/quiz');
+            }}
+          />
+          <span>다시 풀기</span>
+        </IconWrapper>
+        <IconWrapper>
+          <ReviewIcon
+            onClick={() => {
+              setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
+              navigate('/review');
+            }}
+          />
+          <span>리뷰</span>
+        </IconWrapper>
+      </IconListWrapper>
     </Wrapper>
   );
 }
@@ -93,6 +100,44 @@ const ResultTitle = styled.h2`
 
 const TimeSpent = styled.h3`
   font-size: 30px;
+`;
+
+const IconListWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+  margin-top: 25px;
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+`;
+
+const IconMixin = css`
+  padding: 8px;
+  border: 2px solid;
+  border-radius: 50%;
+  font-size: 50px;
+`;
+
+const HomeIcon = styled(IoHome)`
+  ${IconMixin}
+  color: ${(props) => props.theme.colors.yellow};
+`;
+
+const BackIcon = styled(MdSettingsBackupRestore)`
+  ${IconMixin}
+  color: white;
+  background-color: ${(props) => props.theme.colors.red};
+`;
+
+const ReviewIcon = styled(MdOutlineStickyNote2)`
+  ${IconMixin}
+  color: ${(props) => props.theme.colors.main};
 `;
 
 const ChartWrapper = styled.div`
