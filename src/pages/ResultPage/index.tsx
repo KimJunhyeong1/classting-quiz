@@ -1,16 +1,24 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 import { timeSpentState } from '../../recoil/resultInfo';
 import resultInfoState from '../../recoil/resultInfo/atom';
+import { useNavigate } from 'react-router-dom';
+import quizState from '../../recoil/quiz/atom';
+import { useQueryClient } from '@tanstack/react-query';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function ResultPage() {
-  const resultInfo = useRecoilValue(resultInfoState);
+  const [resultInfo, setResultInfo] = useRecoilState(resultInfoState);
   const timeSpent = useRecoilValue(timeSpentState);
+  const setQuiz = useSetRecoilState(quizState);
+  const resetQuiz = useResetRecoilState(quizState);
+  const resetResultInfo = useResetRecoilState(resultInfoState);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const data = {
     labels: ['오답', '정답'],
@@ -25,7 +33,7 @@ function ResultPage() {
     ],
   };
 
-  console.log(resultInfo.endDate, resultInfo.startDate);
+  console.log(resultInfo);
   return (
     <Wrapper>
       <ResultTitle>결과</ResultTitle>
@@ -33,6 +41,39 @@ function ResultPage() {
       <ChartWrapper>
         <Pie data={data} />
       </ChartWrapper>
+      <button
+        onClick={() => {
+          resetQuiz();
+          resetResultInfo();
+          queryClient.removeQueries(['questions']);
+          navigate('/');
+        }}
+      >
+        홈
+      </button>
+      <button
+        onClick={() => {
+          setResultInfo((prev) => ({
+            ...prev,
+            startDate: new Date(),
+            correctNum: 0,
+            incorrectNum: 0,
+            incorrectQuestions: [],
+          }));
+          setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
+          navigate('/quiz');
+        }}
+      >
+        다시 풀기
+      </button>
+      <button
+        onClick={() => {
+          setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
+          navigate('/review');
+        }}
+      >
+        오답 노트
+      </button>
     </Wrapper>
   );
 }

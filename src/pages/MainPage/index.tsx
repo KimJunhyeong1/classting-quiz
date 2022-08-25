@@ -10,7 +10,7 @@ function MainPage() {
   const setResultInfo = useSetRecoilState(resultInfoState);
 
   const handleSolveButtonClick = () => {
-    setQuiz((prev) => ({ ...prev, isCurrentSolving: true }));
+    setQuiz((prev) => ({ ...prev, solvingState: 'new' }));
     setResultInfo((prev) => ({ ...prev, startDate: new Date() }));
   };
 

@@ -8,6 +8,7 @@ const resultInfoState = atom<IResultInfoState>({
     endDate: new Date(),
     correctNum: 0,
     incorrectNum: 0,
+    incorrectQuestions: [],
   },
 });
 

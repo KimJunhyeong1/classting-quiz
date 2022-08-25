@@ -1,38 +1,33 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Question } from '../../api/type';
 
+import { Question } from '../../api/type';
 import { useQuestionsQuery } from '../../hooks/useQuestionsQuery';
 import quizState from '../../recoil/quiz/atom';
-import resultInfoState from '../../recoil/resultInfo/atom';
 
-function AnswerList({ onSelect }: { onSelect: (data: Question[]) => Question }) {
-  const [quiz, setQuiz] = useRecoilState(quizState);
-  const setResultInfo = useSetRecoilState(resultInfoState);
+function ReviewList({
+  onSelect,
+  selectedAnswer,
+}: {
+  onSelect: (data: Question[]) => Question;
+  selectedAnswer: string;
+}) {
+  const quiz = useRecoilValue(quizState);
+
+  console.log(selectedAnswer);
   const { data } = useQuestionsQuery({
     select: onSelect,
     enabled: quiz.solvingState === 'new',
   });
 
   const viewList = data?.incorrect_answers.concat(data?.correct_answer).sort();
-  const handleEntryClick = (view: string) => {
-    if (quiz.currentQuestionState !== 'pending') return;
 
-    if (view !== data?.correct_answer) {
-      setResultInfo((prev) => ({
-        ...prev,
-        incorrectQuestions: [
-          ...prev.incorrectQuestions,
-          { questionIndex: quiz.questionsIndex, selectedAnswer: view },
-        ],
-      }));
-    }
+  const handleEntryType = (view: string) => {
+    if (view === selectedAnswer) return 'incorrect';
 
-    setQuiz((prev) => ({
-      ...prev,
-      currentQuestionState: view === data?.correct_answer ? 'correct' : 'incorrect',
-      selectedAnswer: view,
-    }));
+    if (view === data?.correct_answer) return 'correct';
+
+    return 'pending';
   };
 
   return (
@@ -41,8 +36,7 @@ function AnswerList({ onSelect }: { onSelect: (data: Question[]) => Question }) 
         {viewList?.map((view) => (
           <AnswerEntry
             key={view}
-            color={view === quiz.selectedAnswer ? quiz.currentQuestionState : 'pending'}
-            onClick={() => handleEntryClick(view)}
+            color={handleEntryType(view)}
             dangerouslySetInnerHTML={{ __html: `${view}` }}
           ></AnswerEntry>
         ))}
@@ -86,4 +80,4 @@ const AnswerEntry = styled.li`
   line-height: 50px;
 `;
 
-export default AnswerList;
+export default ReviewList;

@@ -4,7 +4,7 @@ import { IQuizState } from './type';
 const quizState = atom<IQuizState>({
   key: 'quizState',
   default: {
-    isCurrentSolving: false,
+    solvingState: 'pending',
     questionsNum: 5,
     questionsIndex: 0,
     currentQuestionState: 'pending',
