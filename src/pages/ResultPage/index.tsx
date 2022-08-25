@@ -16,7 +16,6 @@ function ResultPage() {
   const [resultInfo, setResultInfo] = useRecoilState(resultInfoState);
   const timeSpent = useRecoilValue(timeSpentState);
   const setQuiz = useSetRecoilState(quizState);
-
   const navigate = useNavigate();
 
   const data = {
@@ -31,6 +30,26 @@ function ResultPage() {
       },
     ],
   };
+  const handleHomeClick = () => {
+    navigate('/', { replace: true });
+  };
+  const handleBackClick = () => {
+    setResultInfo((prev) => ({
+      ...prev,
+      startDate: new Date(),
+      correctNum: 0,
+      incorrectNum: 0,
+      incorrectQuestions: [],
+    }));
+    setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
+
+    navigate('/quiz', { replace: true });
+  };
+  const handleReviewClick = () => {
+    setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
+
+    navigate('/review', { replace: true });
+  };
 
   return (
     <Wrapper>
@@ -41,38 +60,15 @@ function ResultPage() {
       </ChartWrapper>
       <IconListWrapper>
         <IconWrapper>
-          <HomeIcon
-            onClick={() => {
-              navigate('/', { replace: true });
-            }}
-          />
+          <HomeIcon onClick={handleHomeClick} />
           <span>홈</span>
         </IconWrapper>
         <IconWrapper>
-          <BackIcon
-            onClick={() => {
-              setResultInfo((prev) => ({
-                ...prev,
-                startDate: new Date(),
-                correctNum: 0,
-                incorrectNum: 0,
-                incorrectQuestions: [],
-              }));
-              setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
-
-              navigate('/quiz', { replace: true });
-            }}
-          />
+          <BackIcon onClick={handleBackClick} />
           <span>다시 풀기</span>
         </IconWrapper>
         <IconWrapper>
-          <ReviewIcon
-            onClick={() => {
-              setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
-
-              navigate('/review', { replace: true });
-            }}
-          />
+          <ReviewIcon onClick={handleReviewClick} />
           <span>리뷰</span>
         </IconWrapper>
       </IconListWrapper>

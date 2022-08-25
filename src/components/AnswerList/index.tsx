@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useQuestionsQuery } from '../../hooks/useQuestionsQuery';
 import quizState from '../../recoil/quiz/atom';
 import resultInfoState from '../../recoil/resultInfo/atom';
+import { handleColorType } from '../../shared/utils';
+import { ListWrapper } from '../shared/ListWrapper';
 import { Props } from './type';
 
 function AnswerList({ onSelect }: Props) {
@@ -51,29 +53,8 @@ function AnswerList({ onSelect }: Props) {
   );
 }
 
-const handleColorType = (color: string | undefined) => {
-  switch (color) {
-    case 'correct':
-      return 'color: white; background: #65cdca; border-color: #65cdca';
-    case 'incorrect':
-      return 'color: white; background: #fe7e64; border-color: #fe7e64';
-    case 'pending':
-      return 'color: #00c795; background: white; border-color: #00c795';
-  }
-};
-
 const Wrapper = styled.div`
   margin-top: 30px;
-`;
-
-const ListWrapper = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 300px;
-  padding: 0;
-  list-style-type: none;
 `;
 
 const AnswerEntry = styled.li`

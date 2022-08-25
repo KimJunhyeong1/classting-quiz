@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
 import { Question } from '../../api/type';
 import NextQuestionButton from '../../components/NextQuestionButton';
 import QuestionWindow from '../../components/QuestionWindow';
