@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { atom, RecoilState, useRecoilValue } from 'recoil';
+import { RecoilState, useRecoilValue } from 'recoil';
 
 export const RecoilObserver = ({
   node,

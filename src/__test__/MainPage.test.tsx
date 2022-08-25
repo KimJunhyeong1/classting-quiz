@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 
 import { render } from '../setupTests';
 import MainPage from '../pages/MainPage';
-import { RecoilObserver } from './RecoilObserver';
+import { RecoilObserver } from '../components/RecoilObserver';
 import quizState from '../recoil/quiz';
 
 describe('<MainPage />', () => {
