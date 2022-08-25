@@ -9,13 +9,14 @@ import QuizPage from './pages/QuizPage';
 import ResultPage from './pages/ResultPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ReviewPage from './pages/ReviewPage';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
   return (
     <Theme>
       <GlobalStyle />
       <Container>
-        <Suspense fallback={<>Loading...</>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             <Route path='/' element={<MainPage />} />
             <Route element={<ProtectedRoute />}>
