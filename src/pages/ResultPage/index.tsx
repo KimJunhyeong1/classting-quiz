@@ -17,19 +17,17 @@ function ResultPage() {
   const [resultInfo, setResultInfo] = useRecoilState(resultInfoState);
   const timeSpent = useRecoilValue(timeSpentState);
   const setQuiz = useSetRecoilState(quizState);
-  const resetQuiz = useResetRecoilState(quizState);
-  const resetResultInfo = useResetRecoilState(resultInfoState);
+
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const data = {
-    labels: ['오답', '정답'],
+    labels: ['정답', '오답'],
     datasets: [
       {
         label: '# of Quiz',
-        data: [resultInfo.incorrectNum, resultInfo.correctNum],
-        backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+        data: [resultInfo.correctNum, resultInfo.incorrectNum],
+        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
         borderWidth: 1,
       },
     ],
@@ -47,10 +45,7 @@ function ResultPage() {
         <IconWrapper>
           <HomeIcon
             onClick={() => {
-              resetQuiz();
-              resetResultInfo();
-              queryClient.removeQueries(['questions']);
-              navigate('/');
+              navigate('/', { replace: true });
             }}
           />
           <span>홈</span>
@@ -66,7 +61,8 @@ function ResultPage() {
                 incorrectQuestions: [],
               }));
               setQuiz((prev) => ({ ...prev, solvingState: 'retry' }));
-              navigate('/quiz');
+
+              navigate('/quiz', { replace: true });
             }}
           />
           <span>다시 풀기</span>
@@ -75,7 +71,8 @@ function ResultPage() {
           <ReviewIcon
             onClick={() => {
               setQuiz((prev) => ({ ...prev, solvingState: 'review' }));
-              navigate('/review');
+
+              navigate('/review', { replace: true });
             }}
           />
           <span>리뷰</span>

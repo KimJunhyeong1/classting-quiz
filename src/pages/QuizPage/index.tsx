@@ -27,7 +27,7 @@ function QuizPage() {
     if (isLastQuestion) {
       resetQuiz();
       setResultInfo((prev) => ({ ...prev, endDate: new Date() }));
-      navigate('/result');
+      navigate('/result', { replace: true });
 
       return;
     }

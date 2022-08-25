@@ -1,5 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import quizState from '../../recoil/quiz';
@@ -8,6 +10,15 @@ import resultInfoState from '../../recoil/resultInfo/atom';
 function MainPage() {
   const setQuiz = useSetRecoilState(quizState);
   const setResultInfo = useSetRecoilState(resultInfoState);
+  const resetQuiz = useResetRecoilState(quizState);
+  const resetResultInfo = useResetRecoilState(resultInfoState);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    resetQuiz();
+    resetResultInfo();
+    queryClient.removeQueries(['questions']);
+  }, []);
 
   const handleSolveButtonClick = () => {
     setQuiz((prev) => ({ ...prev, solvingState: 'new' }));
@@ -17,7 +28,7 @@ function MainPage() {
   return (
     <Wrapper>
       <img src='classting_logo.png' alt='logo' />
-      <StartButton to={'/quiz'} onClick={handleSolveButtonClick}>
+      <StartButton to={'/quiz'} onClick={handleSolveButtonClick} replace={false}>
         퀴즈 풀기
       </StartButton>
     </Wrapper>
