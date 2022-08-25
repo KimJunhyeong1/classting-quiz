@@ -1,7 +1,7 @@
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import styled, { css } from 'styled-components';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { IoHome } from 'react-icons/io5';
 import { MdSettingsBackupRestore, MdOutlineStickyNote2 } from 'react-icons/md';
 
@@ -9,7 +9,6 @@ import { timeSpentState } from '../../recoil/resultInfo';
 import resultInfoState from '../../recoil/resultInfo/atom';
 import { useNavigate } from 'react-router-dom';
 import quizState from '../../recoil/quiz/atom';
-import { useQueryClient } from '@tanstack/react-query';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -33,7 +32,6 @@ function ResultPage() {
     ],
   };
 
-  console.log(resultInfo);
   return (
     <Wrapper>
       <ResultTitle>결과</ResultTitle>

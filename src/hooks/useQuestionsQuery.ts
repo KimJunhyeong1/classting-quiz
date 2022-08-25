@@ -6,6 +6,6 @@ import { Question } from '../api/type';
 export const useQuestionsQuery = (options?: UseQueryOptions<Question[], AxiosError, Question>) =>
   useQuery<Question[], AxiosError, Question>(['questions'], fetchQuestions, {
     refetchOnWindowFocus: false,
-    enabled: false,
+    cacheTime: Infinity,
     ...options,
   });

@@ -13,8 +13,6 @@ function ReviewList({
   selectedAnswer: string;
 }) {
   const quiz = useRecoilValue(quizState);
-
-  console.log(selectedAnswer);
   const { data } = useQuestionsQuery({
     select: onSelect,
     enabled: quiz.solvingState === 'new',

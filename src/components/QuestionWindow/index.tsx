@@ -16,7 +16,6 @@ function QuestionWindow({
     select: onSelect,
     enabled: quiz.solvingState === 'new',
   });
-  console.log(data);
 
   return (
     <Wrapper>

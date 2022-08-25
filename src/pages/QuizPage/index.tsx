@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 import { Question } from '../../api/type';
 import AnswerList from '../../components/AnswerList';
 import NextQuestionButton from '../../components/NextQuestionButton';

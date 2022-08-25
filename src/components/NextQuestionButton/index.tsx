@@ -1,8 +1,5 @@
 import { MouseEventHandler } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import quizState from '../../recoil/quiz/atom';
 
 function NextQuestionButton({
   onNextButtonClick,
