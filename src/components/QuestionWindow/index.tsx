@@ -1,16 +1,11 @@
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { Question } from '../../api/type';
+
 import { useQuestionsQuery } from '../../hooks/useQuestionsQuery';
 import quizState from '../../recoil/quiz/atom';
+import { Props } from './type';
 
-function QuestionWindow({
-  onSelect,
-  questionNum,
-}: {
-  onSelect: (data: Question[]) => Question;
-  questionNum: number;
-}) {
+function QuestionWindow({ onSelect, questionNum }: Props) {
   const quiz = useRecoilValue(quizState);
   const { data } = useQuestionsQuery({
     select: onSelect,

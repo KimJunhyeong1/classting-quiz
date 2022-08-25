@@ -1,12 +1,12 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { Question } from '../../api/type';
 
 import { useQuestionsQuery } from '../../hooks/useQuestionsQuery';
 import quizState from '../../recoil/quiz/atom';
 import resultInfoState from '../../recoil/resultInfo/atom';
+import { Props } from './type';
 
-function AnswerList({ onSelect }: { onSelect: (data: Question[]) => Question }) {
+function AnswerList({ onSelect }: Props) {
   const [quiz, setQuiz] = useRecoilState(quizState);
   const setResultInfo = useSetRecoilState(resultInfoState);
   const { data } = useQuestionsQuery({

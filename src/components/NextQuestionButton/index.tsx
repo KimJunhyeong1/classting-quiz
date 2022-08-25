@@ -1,15 +1,7 @@
-import { MouseEventHandler } from 'react';
 import styled from 'styled-components';
+import { Props } from './type';
 
-function NextQuestionButton({
-  onNextButtonClick,
-  isVisible,
-  isLast,
-}: {
-  onNextButtonClick: MouseEventHandler<HTMLButtonElement>;
-  isVisible: boolean;
-  isLast: boolean;
-}) {
+function NextQuestionButton({ onNextButtonClick, isVisible, isLast }: Props) {
   return (
     <>
       {isVisible && (
