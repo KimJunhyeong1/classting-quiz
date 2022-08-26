@@ -67,10 +67,12 @@ function ResultPage() {
           <BackIcon onClick={handleBackClick} />
           <span>다시 풀기</span>
         </IconWrapper>
-        <IconWrapper>
-          <ReviewIcon onClick={handleReviewClick} />
-          <span>리뷰</span>
-        </IconWrapper>
+        {resultInfo.incorrectNum > 0 && (
+          <IconWrapper>
+            <ReviewIcon onClick={handleReviewClick} />
+            <span>리뷰</span>
+          </IconWrapper>
+        )}
       </IconListWrapper>
     </Wrapper>
   );
