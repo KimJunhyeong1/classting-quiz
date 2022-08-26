@@ -51,6 +51,14 @@ const StartButton = styled(Link)`
   color: white;
   text-align: center;
   line-height: 100px;
+  font-size: 18px;
+  font-weight: 700;
+
+  transition: all 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 
 export default MainPage;
